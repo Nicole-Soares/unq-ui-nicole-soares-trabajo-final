@@ -1,0 +1,40 @@
+.loader-contenedor {
+    background-image: linear-gradient(to right, #EC407A , #8E24AA, #1E88E5, #00C853, #FFE600, #FF8F00, #F44336);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+  }
+  
+  .loader-bar {
+    width: 300px;           
+    height: 20px;            
+    background: #2f313a;     
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #1f1f1f;
+  }
+  
+  
+  .loader-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #FFE600, #E5B800); 
+    animation: fillLoader 2s infinite ease-in-out;
+    border-radius: 12px;
+  }
+  
+  @keyframes fillLoader {
+    0%   { width: 0%;   }
+    50%  { width: 70%;  }
+    100% { width: 100%; }
+  }
+  
+  .loading-text {
+    font-size: 28px;
+    color: white;
+  }
+  

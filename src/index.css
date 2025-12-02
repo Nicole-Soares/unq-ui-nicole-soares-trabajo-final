@@ -1,0 +1,29 @@
+:root {
+  font-family: "Mikado";
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+@font-face {
+  font-family: "Mikado";
+  src: url("./assets/fonts/MikadoBold.otf") format("opentype");
+  font-weight: bold;
+}
