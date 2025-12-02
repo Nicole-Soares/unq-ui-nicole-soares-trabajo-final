@@ -1,5 +1,5 @@
 :root {
-  font-family: "Mikado";
+  font-family: "Baloo 2";
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
@@ -22,8 +22,3 @@ body {
   min-width: 320px;
 }
 
-@font-face {
-  font-family: "Mikado";
-  src: url("./assets/fonts/MikadoBold.otf") format("opentype");
-  font-weight: bold;
-}

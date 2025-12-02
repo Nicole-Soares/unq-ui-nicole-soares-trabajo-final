@@ -1,5 +1,4 @@
 .loader-contenedor {
-    background-image: linear-gradient(to right, #EC407A , #8E24AA, #1E88E5, #00C853, #FFE600, #FF8F00, #F44336);
     height: 100%;
     width: 100%;
     display: flex;
@@ -22,7 +21,7 @@
   .loader-fill {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, #FFE600, #E5B800); 
+    background: linear-gradient(90deg, #00C853, #FF8F00, #FFE600, #EC407A , #1E88E5,  #F44336); 
     animation: fillLoader 2s infinite ease-in-out;
     border-radius: 12px;
   }
