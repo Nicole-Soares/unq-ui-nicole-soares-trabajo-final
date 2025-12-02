@@ -1,14 +1,14 @@
 import './App.css'
-import LoaderPage from './components/Loader'
-import DificultadPage from './pages/DificultadPage'
+import { Routes, Route } from "react-router-dom";
+import DificultadPage from "./pages/DificultadPage";
+import PreguntasPage from './pages/PreguntasPage';
 
 function App() {
-
-
   return (
-    <>
-     <DificultadPage/>
-    </>
+    <Routes>
+      <Route path="/" element={<DificultadPage />} />
+      <Route path="/preguntas" element={<PreguntasPage />} />
+    </Routes>
   )
 }
 

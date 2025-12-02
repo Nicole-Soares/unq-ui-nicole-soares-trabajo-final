@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import Loader from "../components/Loader";
 import "../style/DificultadPage.css";
 import Arte from "../assets/Arte.png";
@@ -8,21 +9,20 @@ import Historia from "../assets/Historia.png";
 import Willy from "../assets/Willy.png";
 import Entrenemiento from "../assets/Entretenimiento.png";
 import Geografia from "../assets/Geografia.png";
+import { useDifficulty } from "../hooks/useDifficulty";
 
 export default function DificultadPage() {
   const [dificultades, setDificultades] = useState([]);
-  const [dificultadSeleccionada, setDifilcultadSeleccionada] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
+  const { difficulty, setDifficulty } = useDifficulty(); // se podría usar useContext(y el contexto)
+  const [loading, setLoading] = useState(true);
+const navigate = useNavigate();
+  
+    useEffect(() => {
     const MIN_LOADING_MS = 2050; // mínimo que querés ver el loader
     const start = Date.now(); // el tiempo en el que empezo a montarse el componente
 
-    
-
     const fetchData = async () => {
       try {
-        setLoading(true);
         const response = await fetch(
           "https://preguntados-api.vercel.app/api/difficulty"
         );
@@ -39,6 +39,7 @@ export default function DificultadPage() {
         setTimeout(() => {
           setLoading(false);
         }, remaining);
+
       } catch (error) {
         console.error("Error fetching data:", error);
         setLoading(false);
@@ -49,12 +50,20 @@ export default function DificultadPage() {
   }, []);
 
   const handleClickDificultad = (dificultad) => {
-    setDifilcultadSeleccionada(dificultad);
+    setDifficulty(dificultad);
+  };
+
+  const handleJugar = () => {
+    if (!difficulty) return;
+    setTimeout(() => {
+        navigate("/preguntas");
+      }, 0);
+      
   };
 
   if (loading) {
     return <Loader />;
-  }
+  };
 
   return (
     <div className="dificultad-background">
@@ -98,7 +107,7 @@ export default function DificultadPage() {
       <div className="modal-dificultad">
         <h1 className="modal-title">Seleccioná la dificultad</h1>
 
-        {dificultades.length < 0 ? (
+        {dificultades.length === 0 ? (
           <div>
             <h1>No hay dificultades disponibles</h1>
           </div>
@@ -107,7 +116,7 @@ export default function DificultadPage() {
             <button
               key={dificultad}
               className={`dificultad-btn ${
-                dificultadSeleccionada === dificultad ? "seleccionado" : ""
+                difficulty === dificultad ? "seleccionado" : ""
               }`}
               onClick={() => handleClickDificultad(dificultad)}
             >
@@ -116,7 +125,7 @@ export default function DificultadPage() {
           ))
         )}
 
-        <button className="jugar-btn" disabled={!dificultadSeleccionada}>
+        <button className="jugar-btn" disabled={!difficulty} onClick={handleJugar}>
           ¡A jugar!
         </button>
       </div>

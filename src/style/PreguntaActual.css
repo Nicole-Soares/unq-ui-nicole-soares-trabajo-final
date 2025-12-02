@@ -1,0 +1,68 @@
+.preguntas-background {
+    height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(to right, #00C853, #FF8F00, #FFE600, #EC407A, #1E88E5, #F44336);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.modal-opciones {
+    background: white;
+    padding: 40px 50px;
+    border-radius: 25px;
+    box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    width: 500px;
+    /* Este contenedor ya es flex-direction: column, lo cual es correcto */
+    display: flex;
+    flex-direction: column;
+    gap: 25px; /* Añade un espacio entre el h1 y las opciones */
+}
+
+.pregunta {
+    color: black;
+    margin-bottom: 0; /* Asegura que el h1 no añada margen extra si usaste gap en modal-opciones */
+}
+
+/* 👈 ESTA ES LA CLAVE PARA APILAR LAS OPCIONES */
+.opciones-preguntas {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espacio entre los botones de las opciones */
+    width: 100%;
+}
+
+
+
+/* Opcional: mejora el aspecto de los botones */
+.opciones-preguntas button {
+    width: 100%;
+    background: #ffffff;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 999px;          
+    margin-top: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.18);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    color: black;
+    font-family: "Baloo 2", sans-serif;
+}
+
+.opciones-preguntas button:hover {
+    background-color: #ddd;
+}
+
+.boton-pregunta.boton-correcto {
+    background: #4cd964;
+    color: #000;
+  }
+
+.boton-pregunta.boton-incorrecto {
+    background: #e72f21;
+    color: #000;
+  }

@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* modal al centro */
+    justify-content: center;
     position: relative;
   }
   
@@ -29,9 +29,6 @@
     animation: snake 1.8s ease-in-out infinite;
   }
   
-  .personaje-willy{
-    
-  }
   /* animación “serpiente” */
   @keyframes snake {
     0%, 100% {
@@ -44,7 +41,7 @@
       transform: translateY(0);       
     }
     80% {
-      transform: translateY(14px);    /* un poco hacia abajo */
+      transform: translateY(14px);   
     }
   }
   
@@ -100,7 +97,7 @@
     background: #ffffff;
     border: none;
     padding: 12px 18px;
-    border-radius: 999px;          /* 🔹 súper redondo */
+    border-radius: 999px;          
     margin-top: 12px;
     font-size: 16px;
     cursor: pointer;
