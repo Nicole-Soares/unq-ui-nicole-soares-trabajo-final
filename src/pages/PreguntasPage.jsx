@@ -19,7 +19,7 @@ export default function PreguntasPage() {
     const fetchPreguntas = async () => {
       try {
         const response = await fetch(
-          `https://preguntados-api.vercel.app/api/questions?difficulty=easy`
+          `https://preguntados-api.vercel.app/api/questions?difficulty=${difficulty}`
         );
         const result = await response.json();
         setPreguntas(result);
@@ -66,21 +66,21 @@ export default function PreguntasPage() {
         setRespuesta(data);       
         setTimeout(() => {
            if(data.answer){
-           // 💡 FORMA FUNCIONAL: Usar el valor actual (prev)
+           
              setCantidadDePreguntasCorrectas(prev => prev + 1);
            }
            else{
-            // 💡 FORMA FUNCIONAL: Usar el valor actual (prev)
+           
              setCantidadDePreguntasIncorrectas(prev => prev + 1);
             }
            
-             // Puedes usar una sola actualización para las preguntas hechas
+            
             setCantidadDePreguntasHechas(prev => prev + 1);
             
-          // Resto del código
+        
             setRespuesta(null);
             setOpcionSeleccionada(null);
-            setCurrentIndex(prev => prev + 1); // También es buena práctica usar prev aquí
+            setCurrentIndex(prev => prev + 1); 
            }, 2000);
     }
     else{
@@ -92,7 +92,7 @@ export default function PreguntasPage() {
     return( <Loader />);
   }
 
-  // si ya pasaste las 10 → mostrar pantalla de resultados
+  
   if (cantidadDePreguntasHechas >= preguntas.length) {
     return <ResultadosPage cantidadDePreguntasCorrectas={cantidadDePreguntasCorrectas} cantidadDePreguntasIncorrectas={cantidadDePreguntasIncorrectas} />;
   }
