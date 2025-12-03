@@ -5,6 +5,7 @@ import PreguntaActual from "../components/PreguntaActual";
 import "../style/PreguntaActual.css";
 import ResultadosPage from "./ResultadosPage";
 
+
 export default function PreguntasPage() {
   const [preguntas, setPreguntas] = useState([]);
   const { difficulty } = useDifficulty();
@@ -15,6 +16,10 @@ export default function PreguntasPage() {
   const [cantidadDePreguntasHechas, setCantidadDePreguntasHechas] = useState(0);
   const [cantidadDePreguntasCorrectas, setCantidadDePreguntasCorrectas] = useState(0);
   const [cantidadDePreguntasIncorrectas, setCantidadDePreguntasIncorrectas] = useState(0);
+  const listaDeFondos = ["fondo1", "fondo2", "fondo3", "fondo4", "fondo5", "fondo6", "fondo7", "fondo8", "fondo9", "fondo10"];
+
+
+
   useEffect(() => {
     const fetchPreguntas = async () => {
       try {
@@ -97,12 +102,15 @@ export default function PreguntasPage() {
     return <ResultadosPage cantidadDePreguntasCorrectas={cantidadDePreguntasCorrectas} cantidadDePreguntasIncorrectas={cantidadDePreguntasIncorrectas} />;
   }
     
+  const fondoActualClass = listaDeFondos[currentIndex % listaDeFondos.length];
+
+
   return (
-    <div className="preguntas-background">
-        <h1>{cantidadDePreguntasHechas}/{preguntas.length}</h1>
+    <div className={`preguntas-background ${fondoActualClass}`}>
+        <h1 className="cantidad-preguntas">{cantidadDePreguntasHechas}/{preguntas.length}</h1>
     <PreguntaActual
       key={currentIndex} // para renderizar de nuevo el componente cuando se cambia de pregunta
-      pregunta={preguntas[currentIndex]}
+      pregunta={preguntas[currentIndex]} //para que pase a la siguiente pregunta
       onAnswer={handleAnswer}
       respuesta={respuesta}
       opcionSeleccionada={opcionSeleccionada}

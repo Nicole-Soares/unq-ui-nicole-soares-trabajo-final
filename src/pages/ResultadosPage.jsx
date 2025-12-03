@@ -41,14 +41,14 @@ export default function ResultadosPage({
 
       {/* Contenido de los resultados */}
       <div className="resultados-container"> 
-        <h1>Respuestas correctas: {cantidadDePreguntasCorrectas}</h1>
-        <h1>Respuestas incorrectas: {cantidadDePreguntasIncorrectas}</h1>
+        <h1>Correct answers: {cantidadDePreguntasCorrectas}</h1>
+        <h1>Wrong answers: {cantidadDePreguntasIncorrectas}</h1>
       </div>
 
       {/* Botón para volver a jugar */}
       <div className="boton-replay">
         <button onClick={handlerRepetir}>
-          Volver a jugar <MdOutlineReplay />
+        Play again! <MdOutlineReplay />
         </button>
       </div>
     </div>

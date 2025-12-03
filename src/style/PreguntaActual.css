@@ -1,68 +1,127 @@
 .preguntas-background {
-    height: 100vh;
-    width: 100%;
-    background-image: linear-gradient(to right, #00C853, #FF8F00, #FFE600, #EC407A, #1E88E5, #F44336);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+  height: 100vh;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    #00c853,
+    #ff8f00,
+    #ffe600,
+    #ec407a,
+    #1e88e5,
+    #f44336
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
+.preguntas-background.fondo1 {
+  background-image: url("../assets/fondos/fondo1.jpg");
+}
+
+.preguntas-background.fondo2 {
+  background-image: url("../assets/fondos/fondo2.jpg");
+}
+
+.preguntas-background.fondo3 {
+  background-image: url("../assets/fondos/fondo3.jpg");
+}
+
+.preguntas-background.fondo4 {
+  background-image: url("../assets/fondos/fondo4.jpg");
+}
+
+.preguntas-background.fondo5 {
+  background-image: url("../assets/fondos/fondo5.jpg");
+}
+
+.preguntas-background.fondo6 {
+  background-image: url("../assets/fondos/fondo6.jpg");
+}
+
+.preguntas-background.fondo7 {
+  background-image: url("../assets/fondos/fondo7.jpg");
+}
+
+.preguntas-background.fondo8 {
+  background-image: url("../assets/fondos/fondo8.jpg");
+}
+
+.preguntas-background.fondo9 {
+  background-image: url("../assets/fondos/fondo9.jpg");
+}
+
+.preguntas-background.fondo10 {
+  background-image: url("../assets/fondos/fondo10.jpg");
+}
+
+.cantidad-preguntas {
+  text-shadow: 0 0 5px rgb(38, 0, 255), 0 0 10px rgb(204, 56, 184);
+  position: relative;
+  z-index: 1;
+}
+
+.preguntas-background::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 0;
+}
 .modal-opciones {
-    background: white;
-    padding: 40px 50px;
-    border-radius: 25px;
-    box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.25);
-    text-align: center;
-    width: 500px;
-    /* Este contenedor ya es flex-direction: column, lo cual es correcto */
-    display: flex;
-    flex-direction: column;
-    gap: 25px; /* Añade un espacio entre el h1 y las opciones */
+  background: white;
+  padding: 40px 50px;
+  border-radius: 25px;
+  box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  max-width: 600px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  position: relative;
+  z-index: 1;
 }
 
 .pregunta {
-    color: black;
-    margin-bottom: 0; /* Asegura que el h1 no añada margen extra si usaste gap en modal-opciones */
+  color: black;
+  margin-bottom: 0;
 }
 
-/* 👈 ESTA ES LA CLAVE PARA APILAR LAS OPCIONES */
 .opciones-preguntas {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Espacio entre los botones de las opciones */
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
 }
 
-
-
-/* Opcional: mejora el aspecto de los botones */
 .opciones-preguntas button {
-    width: 100%;
-    background: #ffffff;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 999px;          
-    margin-top: 12px;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 3px 0 rgba(0,0,0,0.18);
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
-    color: black;
-    font-family: "Baloo 2", sans-serif;
+  width: 100%;
+  background: #ffffff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 999px;
+  margin-top: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.18);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  color: black;
+  font-family: "Baloo 2", sans-serif;
 }
 
 .opciones-preguntas button:hover {
-    background-color: #ddd;
+  background-color: #ddd;
 }
 
 .boton-pregunta.boton-correcto {
-    background: #4cd964;
-    color: #000;
-  }
+  background: #4cd964;
+  color: #000;
+}
 
 .boton-pregunta.boton-incorrecto {
-    background: #e72f21;
-    color: #000;
-  }
+  background: #e72f21;
+  color: #000;
+}

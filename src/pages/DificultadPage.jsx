@@ -105,7 +105,7 @@ const navigate = useNavigate();
         />
       </div>
       <div className="modal-dificultad">
-        <h1 className="modal-title">Seleccioná la dificultad</h1>
+        <h1 className="modal-title">Choose a difficulty level</h1>
 
         {dificultades.length === 0 ? (
           <div>
