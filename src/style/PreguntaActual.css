@@ -112,7 +112,7 @@
   font-family: "Baloo 2", sans-serif;
 }
 
-.opciones-preguntas button:hover {
+.opciones-preguntas button:not(.boton-correcto):not(.boton-incorrecto):hover {
   background-color: #ddd;
 }
 

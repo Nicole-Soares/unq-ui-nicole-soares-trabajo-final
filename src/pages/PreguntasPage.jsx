@@ -5,20 +5,30 @@ import PreguntaActual from "../components/PreguntaActual";
 import "../style/PreguntaActual.css";
 import ResultadosPage from "./ResultadosPage";
 
-
 export default function PreguntasPage() {
   const [preguntas, setPreguntas] = useState([]);
   const { difficulty } = useDifficulty();
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [respuesta, setRespuesta] = useState(null); 
+  const [respuesta, setRespuesta] = useState(null);
   const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
   const [cantidadDePreguntasHechas, setCantidadDePreguntasHechas] = useState(0);
-  const [cantidadDePreguntasCorrectas, setCantidadDePreguntasCorrectas] = useState(0);
-  const [cantidadDePreguntasIncorrectas, setCantidadDePreguntasIncorrectas] = useState(0);
-  const listaDeFondos = ["fondo1", "fondo2", "fondo3", "fondo4", "fondo5", "fondo6", "fondo7", "fondo8", "fondo9", "fondo10"];
-
-
+  const [cantidadDePreguntasCorrectas, setCantidadDePreguntasCorrectas] =
+    useState(0);
+  const [cantidadDePreguntasIncorrectas, setCantidadDePreguntasIncorrectas] =
+    useState(0);
+  const listaDeFondos = [
+    "fondo1",
+    "fondo2",
+    "fondo3",
+    "fondo4",
+    "fondo5",
+    "fondo6",
+    "fondo7",
+    "fondo8",
+    "fondo9",
+    "fondo10",
+  ];
 
   useEffect(() => {
     const fetchPreguntas = async () => {
@@ -36,19 +46,21 @@ export default function PreguntasPage() {
     fetchPreguntas();
   }, [difficulty]);
 
-
   const fetchRespuesta = async (questionId, option) => {
     try {
-      const response = await fetch('https://preguntados-api.vercel.app/api/answer', { 
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          questionId: questionId,
-          option: option
-        }),
-      });
+      const response = await fetch(
+        "https://preguntados-api.vercel.app/api/answer",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            questionId: questionId,
+            option: option,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -58,63 +70,61 @@ export default function PreguntasPage() {
     } catch (err) {
       console.error(err);
       return null;
-    } 
+    }
   };
 
   //cuando seleccionan una respuesta
   const handleAnswer = async (questionId, option) => {
- 
     setOpcionSeleccionada(option);
     const data = await fetchRespuesta(questionId, option);
-    
+
     if (data) {
-        setRespuesta(data);       
-        setTimeout(() => {
-           if(data.answer){
-           
-             setCantidadDePreguntasCorrectas(prev => prev + 1);
-           }
-           else{
-           
-             setCantidadDePreguntasIncorrectas(prev => prev + 1);
-            }
-           
-            
-            setCantidadDePreguntasHechas(prev => prev + 1);
-            
-        
-            setRespuesta(null);
-            setOpcionSeleccionada(null);
-            setCurrentIndex(prev => prev + 1); 
-           }, 2000);
-    }
-    else{
+      setRespuesta(data);
+      setTimeout(() => {
+        if (data.answer) {
+          setCantidadDePreguntasCorrectas((prev) => prev + 1);
+        } else {
+          setCantidadDePreguntasIncorrectas((prev) => prev + 1);
+        }
+
+        setCantidadDePreguntasHechas((prev) => prev + 1);
+
+        setRespuesta(null);
         setOpcionSeleccionada(null);
+        setCurrentIndex((prev) => prev + 1);
+      }, 2000);
+    } else {
+      setOpcionSeleccionada(null);
     }
-};
+  };
 
   if (loading) {
-    return( <Loader />);
+    return <Loader />;
   }
 
-  
   if (cantidadDePreguntasHechas >= preguntas.length) {
-    return <ResultadosPage cantidadDePreguntasCorrectas={cantidadDePreguntasCorrectas} cantidadDePreguntasIncorrectas={cantidadDePreguntasIncorrectas} />;
+    return (
+      <ResultadosPage
+        cantidadDePreguntasCorrectas={cantidadDePreguntasCorrectas}
+        cantidadDePreguntasIncorrectas={cantidadDePreguntasIncorrectas}
+      />
+    );
   }
-    
-  const fondoActualClass = listaDeFondos[currentIndex % listaDeFondos.length];
 
+  const fondoActualClass = listaDeFondos[currentIndex % listaDeFondos.length];
 
   return (
     <div className={`preguntas-background ${fondoActualClass}`}>
-        <h1 className="cantidad-preguntas">{cantidadDePreguntasHechas}/{(preguntas.length) - 1}</h1>
-    <PreguntaActual
-      key={currentIndex} // para renderizar de nuevo el componente cuando se cambia de pregunta
-      pregunta={preguntas[currentIndex]} //para que pase a la siguiente pregunta
-      onAnswer={handleAnswer}
-      respuesta={respuesta}
-      opcionSeleccionada={opcionSeleccionada}
-    />
+      <h1 className="cantidad-preguntas">
+        {cantidadDePreguntasHechas}/{preguntas.length - 1}
+      </h1>
+      <PreguntaActual
+        key={currentIndex} // para renderizar de nuevo el componente cuando se cambia de pregunta
+        pregunta={preguntas[currentIndex]} //para que pase a la siguiente pregunta
+        onAnswer={handleAnswer}
+        respuesta={respuesta}
+        opcionSeleccionada={opcionSeleccionada}
+      />
     </div>
   );
 }
