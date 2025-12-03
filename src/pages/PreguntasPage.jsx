@@ -107,7 +107,7 @@ export default function PreguntasPage() {
 
   return (
     <div className={`preguntas-background ${fondoActualClass}`}>
-        <h1 className="cantidad-preguntas">{cantidadDePreguntasHechas}/{preguntas.length}</h1>
+        <h1 className="cantidad-preguntas">{cantidadDePreguntasHechas}/{(preguntas.length) - 1}</h1>
     <PreguntaActual
       key={currentIndex} // para renderizar de nuevo el componente cuando se cambia de pregunta
       pregunta={preguntas[currentIndex]} //para que pase a la siguiente pregunta

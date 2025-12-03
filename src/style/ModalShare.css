@@ -1,0 +1,83 @@
+.share-contenedor {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
+}
+
+.share-menu {
+  position: relative;
+  background: white;
+  padding: 25px 25px 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 85%;
+  max-width: 300px;
+}
+
+.contenedor-share-icono {
+  display: flex;
+  justify-content: flex-end;
+}
+.share-close-btn {
+  cursor: pointer;
+  font-size: 1.8rem;
+  color: #555;
+  background-color: white !important;
+}
+
+.share-close-btn:hover {
+  color: #000;
+  transform: scale(1.15);
+}
+
+.share-menu a {
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 6px;
+  background: #f1f1f1;
+  color: #333;
+  text-align: center;
+  font-family: "Baloo 2";
+  font-weight: 600;
+}
+
+.share-menu a:hover {
+  background: #ddd;
+}
+
+
+
+@media (max-width: 600px) {
+    .contenedor-share-icono {
+        display: flex;
+        justify-content: flex-end;
+      }
+  }
+  
+  /* ---------------------------------------------------
+     menos de 900px
+    --------------------------------------------------- */
+  @media (max-width: 900px) {
+    .contenedor-share-icono {
+        display: flex;
+        justify-content: flex-end;
+      }
+  }
+  
+  /* ---------------------------------------------------
+      más de 1400px
+    --------------------------------------------------- */
+  @media (min-width: 1400px) {
+    .contenedor-share-icono {
+        display: flex;
+        justify-content: flex-end;
+      }
+  }
+  

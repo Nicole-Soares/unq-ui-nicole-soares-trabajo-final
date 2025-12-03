@@ -1,54 +1,131 @@
 .resultados-background {
-    height: 100vh;
-    width: 100vw; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-image: url('../assets/resultados.jpg');
-    color: white; 
-    font-family: "Baloo 2";
-    position: relative; 
-    overflow: hidden; 
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url("../assets/resultados.jpg");
+  color: white;
+  font-family: "Baloo 2";
+  position: relative;
+  overflow: hidden;
 }
 
 .resultados-container {
-    background: rgba(255, 255, 255, 0.1); 
-    padding: 30px 50px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    margin-bottom: 100px;
-    z-index: 10; /*por encima*/
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px 50px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  margin-bottom: 100px;
+  z-index: 10; /*por encima*/
 }
 
 .resultados-container h1 {
-    font-size: 2.5em;
-    margin: 15px 0;
-    color: #f0f0f0;
+  font-size: 2.5em;
+  margin: 15px 0;
+  color: #f0f0f0;
 }
 
 .boton-replay button {
-    padding: 15px 30px;
-    font-size: 1.2em;
-    background-color: #61dafb; 
-    color: #282c34;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    z-index: 10; 
-    font-family: "Baloo 2";
+  padding: 15px 30px;
+  margin-bottom: 30px;
+  font-size: 1.2em;
+  background-color: #61dafb;
+  color: #282c34;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  z-index: 10;
+  font-family: "Baloo 2";
 }
 
 .boton-replay button:hover {
-    background-color: #4ac6eb;
-    transform: translateY(-2px);
+  background-color: #4ac6eb;
+  transform: translateY(-2px);
 }
 
 .boton-replay button svg {
-    font-size: 1.5em; 
+  font-size: 1.5em;
+}
+
+/* ---------------------------------------------------
+   menos de 600px
+--------------------------------------------------- */
+@media (max-width: 600px) {
+  .resultados-background {
+    padding: 20px;
+    justify-content: flex-start;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .resultados-container {
+    width: 90%;
+    padding: 20px 15px;
+    margin-bottom: 40px;
+  }
+
+  .resultados-container h1 {
+    font-size: 1.6em;
+    margin: 10px 0;
+  }
+
+  .boton-replay button {
+    width: 90%;
+    padding: 12px 20px;
+    font-size: 1em;
+    border-radius: 6px;
+  }
+
+  .boton-replay button svg {
+    font-size: 1.2em;
+  }
+}
+
+/* ---------------------------------------------------
+   menos de 900px
+  --------------------------------------------------- */
+@media (max-width: 900px) {
+  .resultados-container {
+    width: 80%;
+    padding: 25px 30px;
+  }
+
+  .resultados-container h1 {
+    font-size: 2em;
+  }
+
+  .boton-replay button {
+    padding: 14px 26px;
+    font-size: 1.1em;
+  }
+}
+
+/* ---------------------------------------------------
+    más de 1400px
+  --------------------------------------------------- */
+@media (min-width: 1400px) {
+  .resultados-container {
+    padding: 40px 70px;
+    border-radius: 20px;
+  }
+
+  .resultados-container h1 {
+    font-size: 3em;
+  }
+
+  .boton-replay button {
+    padding: 20px 40px;
+    font-size: 1.4em;
+  }
+
+  .boton-replay button svg {
+    font-size: 2em;
+  }
 }

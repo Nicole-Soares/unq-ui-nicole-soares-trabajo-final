@@ -74,7 +74,7 @@
   }
   
   
-  /* MODAL estilo Preguntados */
+
   .modal-dificultad {
     background: white;
     padding: 40px 50px;
@@ -84,7 +84,7 @@
     width: 350px;
   }
   
-  /* Título */
+
   .modal-title {
     font-size: 26px;
   margin-bottom: 28px;
@@ -112,7 +112,7 @@
     box-shadow: 0 4px 0 rgba(0,0,0,0.22);
   }
   
-  /* seleccionado un poco más fuerte */
+  
   .dificultad-btn.seleccionado {
     background: #4cd964;
     color: #000;
@@ -146,3 +146,85 @@
     opacity: 0.8;
   }
   
+  /* ------------------------------
+   (pantallas < 600px)
+--------------------------------*/
+@media (max-width: 600px) {
+
+
+  .dificultad-background {
+    padding: 20px 0;
+  }
+
+  /* varias filas */
+  .contenedor-personajes {
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .personajes-top {
+    width: 50px;   
+  }
+
+ 
+  .modal-dificultad {
+    width: 90%;
+    padding: 25px 20px;
+  }
+
+  
+  .modal-title {
+    font-size: 20px;
+    margin-bottom: 18px;
+  }
+
+  
+  .dificultad-btn {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  .jugar-btn {
+    font-size: 16px;
+    padding: 12px;
+  }
+}
+
+/* ------------------------------
+   (600px–900px)
+--------------------------------*/
+@media (max-width: 900px) {
+
+  .contenedor-personajes {
+    width: 80%;
+    gap: 10px;
+  }
+
+  .personajes-top {
+    width: 65px;
+  }
+
+  .modal-dificultad {
+    width: 70%;
+  }
+}
+
+/* ------------------------------
+     (pantallas>1200px)
+--------------------------------*/
+@media (min-width: 1200px) {
+
+  .contenedor-personajes {
+    width: 50%;
+  }
+
+  .personajes-top {
+    width: 90px;
+  }
+
+  .modal-dificultad {
+    width: 380px;
+  }
+}

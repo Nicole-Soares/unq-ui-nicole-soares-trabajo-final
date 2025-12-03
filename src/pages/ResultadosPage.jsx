@@ -1,9 +1,10 @@
 import { MdOutlineReplay } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import React from 'react'; 
-import Confetti from 'react-confetti';
-import useWindowSize from '../hooks/useWindowSize'; 
-import "../style/ResultadosPage.css"; 
+import React, { useState } from "react";
+import Confetti from "react-confetti";
+import useWindowSize from "../hooks/useWindowSize";
+import "../style/ResultadosPage.css";
+import ModalShare from "../components/modales/ModalShare";
 
 export default function ResultadosPage({
   cantidadDePreguntasCorrectas,
@@ -11,10 +12,20 @@ export default function ResultadosPage({
 }) {
   const navigate = useNavigate();
   //hook del tamaño de la ventana actual
-  const { width, height } = useWindowSize(); 
+  const { width, height } = useWindowSize();
+
+  const [shareMenuOpen, setShareMenuOpen] = useState(false);
+
+  const openShareMenu = () => {
+    setShareMenuOpen(true);
+  };
+
+  const closeShareMenu = () => {
+    setShareMenuOpen(false);
+  };
 
   const handlerRepetir = () => {
-    navigate("/"); 
+    navigate("/");
   };
 
   return (
@@ -24,23 +35,25 @@ export default function ResultadosPage({
         width={width}
         height={height}
         origin={{ x: 0, y: 0 }}
-        numberOfPieces={150} 
+        numberOfPieces={150}
         gravity={0.1} //  más lento o rápido
-        wind={0.05} 
+        wind={0.05}
+        style={{ pointerEvents: "none" }}
       />
 
       {/* Esquina Superior Derecha */}
       <Confetti
         width={width}
         height={height}
-        origin={{ x: 1, y: 0 }} 
-        numberOfPieces={150} 
+        origin={{ x: 1, y: 0 }}
+        numberOfPieces={150}
         gravity={0.1}
-        wind={-0.05} 
+        wind={-0.05}
+        style={{ pointerEvents: "none" }}
       />
 
       {/* Contenido de los resultados */}
-      <div className="resultados-container"> 
+      <div className="resultados-container">
         <h1>Correct answers: {cantidadDePreguntasCorrectas}</h1>
         <h1>Wrong answers: {cantidadDePreguntasIncorrectas}</h1>
       </div>
@@ -48,8 +61,20 @@ export default function ResultadosPage({
       {/* Botón para volver a jugar */}
       <div className="boton-replay">
         <button onClick={handlerRepetir}>
-        Play again! <MdOutlineReplay />
+          Play again! <MdOutlineReplay />
         </button>
+
+        <button className="share-btn" onClick={openShareMenu}>
+          Share score
+        </button>
+
+        {shareMenuOpen && (
+          <ModalShare
+            cantidadDePreguntasCorrectas={cantidadDePreguntasCorrectas}
+            cantidadDePreguntasIncorrectas={cantidadDePreguntasIncorrectas}
+            onClose={closeShareMenu}
+          />
+        )}
       </div>
     </div>
   );
