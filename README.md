@@ -1,16 +1,71 @@
-# React + Vite
+# Trivia Game 🎮
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Trabajo práctico final de la materia **Interfaces de Usuario** en la Universidad Nacional de Quilmes (UNQ), inspirado en el juego _Preguntados_.  
+Es una aplicación web de trivia donde podés elegir una dificultad, responder preguntas y ver tu puntaje final.  
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧩 Funcionalidades principales
 
-## React Compiler
+- **Selección de dificultad**: `easy`, `normal`, `hard`, `extreme`.
+- **Pantalla de preguntas**:
+  - Muestra una pregunta a la vez.
+  - Feedback visual inmediato: botón verde si acertás, rojo si fallás.
+  - Avanza automáticamente despues de 10seg a la siguiente pregunta.
+- **Contador de progreso**: cuántas preguntas respondiste sobre el total.
+- **Pantalla de resultados**: cantidad de respuestas correctas e incorrectas.
+- **Modo claro / modo oscuro**:
+  - Botón con ícono de sol/luna en la esquina superior derecha.
+  - Cambia fondos y estilos según el tema.
+- **Loader inicial**: pantalla de carga breve mientras se obtienen los datos.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tecnologías usadas
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- [React](https://react.dev/)
+- [React Router](https://reactrouter.com/)
+- Context + hooks personalizados:
+- CSS puro para estilos y animaciones.
+- Fetch API para consumir el backend de preguntas.
+
+---
+
+## 🚀 Cómo ejecutar el proyecto
+
+Pasos para poder ejecutar el proyecto localmente
+
+### 1. Requisitos previos
+
+- [Node.js](https://nodejs.org/) (versión recomendada 18+)
+- npm o yarn (cualquiera de los dos)
+- Git
+
+### 2. Clonar el repositorio
+
+Abrir la terminal, posicionarse en la carpeta donde se quiera clonar el repo
+```bash
+git clone https://github.com/Nicole-Soares/unq-ui-nicole-soares-trabajo-final.git
+```
+
+### 3. Instalar dependencias
+
+Posicionarse en el repo clonado en el paso anterior con:
+
+cd al repo clonado
+
+Instalar lo necesario para su funcionamiento con:
+
+```bash
+npm install
+```
+
+### 4. Ejecutar localmente
+
+Posicionado en el repo, lo levantamos con:
+
+```bash
+npm run dev
+```
+Mayormente se levanta en http://localhost:5173/, copiar y pegar esa url en el navegador o ctrl + click te direcciona al navegador
+
