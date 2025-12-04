@@ -1,4 +1,4 @@
-import "../../style/ModalShare.css";
+import "./ModalShare.css";
 import { IoClose } from "react-icons/io5";
 
 export default function ModalShare({

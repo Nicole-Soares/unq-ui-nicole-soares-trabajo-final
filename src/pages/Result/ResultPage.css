@@ -1,15 +1,18 @@
 .resultados-background {
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: url("../assets/resultados.jpg");
+  background-image: url("../../assets/resultados.jpg");
+  background-size: cover;
+  background-position: center;
   color: white;
   font-family: "Baloo 2";
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .resultados-container {
@@ -18,8 +21,8 @@
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   text-align: center;
-  margin-bottom: 100px;
-  z-index: 10; /*por encima*/
+  margin-bottom: 40px;
+  z-index: 10;
 }
 
 .resultados-container h1 {
@@ -28,9 +31,16 @@
   color: #f0f0f0;
 }
 
+.boton-replay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
+}
+
 .boton-replay button {
   padding: 15px 30px;
-  margin-bottom: 30px;
   font-size: 1.2em;
   background-color: #61dafb;
   color: #282c34;
@@ -41,7 +51,6 @@
   align-items: center;
   gap: 10px;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  z-index: 10;
   font-family: "Baloo 2";
 }
 
@@ -59,16 +68,16 @@
 --------------------------------------------------- */
 @media (max-width: 600px) {
   .resultados-background {
-    padding: 20px;
+    padding: 20px 12px;
     justify-content: flex-start;
-    background-size: cover;
-    background-position: center;
   }
 
   .resultados-container {
-    width: 90%;
-    padding: 20px 15px;
-    margin-bottom: 40px;
+    width: 100%;
+    padding: 20px 16px;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
   }
 
   .resultados-container h1 {
@@ -77,10 +86,11 @@
   }
 
   .boton-replay button {
-    width: 90%;
+    width: 100%;
     padding: 12px 20px;
     font-size: 1em;
     border-radius: 6px;
+    justify-content: center;
   }
 
   .boton-replay button svg {
@@ -89,9 +99,9 @@
 }
 
 /* ---------------------------------------------------
-   menos de 900px
-  --------------------------------------------------- */
-@media (max-width: 900px) {
+   600px – 900px
+--------------------------------------------------- */
+@media (min-width: 600px) and (max-width: 900px) {
   .resultados-container {
     width: 80%;
     padding: 25px 30px;
@@ -108,8 +118,8 @@
 }
 
 /* ---------------------------------------------------
-    más de 1400px
-  --------------------------------------------------- */
+   más de 1400px
+--------------------------------------------------- */
 @media (min-width: 1400px) {
   .resultados-container {
     padding: 40px 70px;

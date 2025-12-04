@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Loader from "../components/Loader";
-import "../style/DificultadPage.css";
-import Arte from "../assets/Arte.png";
-import Ciencia from "../assets/Ciencia.png";
-import Deportes from "../assets/Deportes.png";
-import Historia from "../assets/Historia.png";
-import Willy from "../assets/Willy.png";
-import Entrenemiento from "../assets/Entretenimiento.png";
-import Geografia from "../assets/Geografia.png";
-import { useDifficulty } from "../hooks/useDifficulty";
-import ThemeButtons from "../components/ThemeButtons";
-import { useTheme } from "../hooks/useTheme";
+import Loader from "../../components/Loader/Loader";
+import "./DifficultyPage.css";
+import Arte from "../../assets/Arte.png";
+import Ciencia from "../../assets/Ciencia.png";
+import Deportes from "../../assets/Deportes.png";
+import Historia from "../../assets/Historia.png";
+import Willy from "../../assets/Willy.png";
+import Entrenemiento from "../../assets/Entretenimiento.png";
+import Geografia from "../../assets/Geografia.png";
+import { useDifficulty } from "../../hooks/useDifficulty";
+import ThemeButtons from "../../components/ThemeButtons";
+import { useTheme } from "../../hooks/useTheme";
+import { getDifficulties } from "../../services/triviaApi";
 
-export default function DificultadPage() {
+export default function DifficultyPage() {
   const [dificultades, setDificultades] = useState([]);
   const { difficulty, setDifficulty } = useDifficulty(); // se podría usar useContext(y el contexto)
   const { theme } = useTheme();
   const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,23 +28,19 @@ export default function DificultadPage() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://preguntados-api.vercel.app/api/difficulty"
-        );
-        const result = await response.json();
-
+        const result = await getDifficulties();
         setDificultades(result);
-
         // cuánto tardó realmente
         const elapsed = Date.now() - start;
         const remaining = Math.max(MIN_LOADING_MS - elapsed, 0);
-
-        // terminamos el loading después de completar el mínimo
         setTimeout(() => {
           setLoading(false);
         }, remaining);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setErrorMsg(
+          "Sorry, we couldn't load the difficulties. Please try again."
+        );
         setLoading(false);
       }
     };
@@ -56,9 +54,7 @@ export default function DificultadPage() {
 
   const handleJugar = () => {
     if (!difficulty) return;
-    setTimeout(() => {
-      navigate("/preguntas");
-    }, 0);
+    navigate("/preguntas");
   };
 
   if (loading) {
@@ -66,12 +62,12 @@ export default function DificultadPage() {
   }
 
   return (
-    <div className={`dificultad-background ${theme}`}>
+    <div className={`difficulty-background ${theme}`}>
       <div className="theme-toggle-wrapper">
         <ThemeButtons />
       </div>
       <div>
-        <h1 className="title-preguntados">Preguntados</h1>
+        <h1 className="title-trivia">Trivia Game</h1>
       </div>
       <div className="contenedor-personajes">
         <img
@@ -110,18 +106,18 @@ export default function DificultadPage() {
           alt="arte"
         />
       </div>
-      <div className={`modal-dificultad ${theme}`}>
+      <div className={`modal-difficulty ${theme}`}>
         <h1 className="modal-title">Choose a difficulty level</h1>
 
-        {dificultades.length === 0 ? (
-          <div>
-            <h1>No hay dificultades disponibles</h1>
-          </div>
+        {errorMsg ? (
+          <h2 className="error-message">{errorMsg}</h2>
+        ) : dificultades.length === 0 ? (
+          <h1>No difficulties available at the moment.</h1>
         ) : (
           dificultades.map((dificultad) => (
             <button
               key={dificultad}
-              className={`dificultad-btn ${
+              className={`difficulty-btn ${
                 difficulty === dificultad ? `seleccionado ${difficulty}` : ""
               }`}
               onClick={() => handleClickDificultad(dificultad)}
@@ -132,11 +128,11 @@ export default function DificultadPage() {
         )}
 
         <button
-          className={`jugar-btn ${theme}`}
+          className={`play-btn ${theme}`}
           disabled={!difficulty}
           onClick={handleJugar}
         >
-          ¡A jugar!
+          Let’s play!
         </button>
       </div>
     </div>

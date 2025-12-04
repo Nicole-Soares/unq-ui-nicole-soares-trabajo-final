@@ -2,9 +2,9 @@ import { MdOutlineReplay } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import Confetti from "react-confetti";
-import useWindowSize from "../hooks/useWindowSize";
-import "../style/ResultadosPage.css";
-import ModalShare from "../components/modales/ModalShare";
+import useWindowSize from "../../hooks/useWindowSize";
+import "./ResultPage.css";
+import ModalShare from "../../components/modales/ModalShare";
 
 export default function ResultadosPage({
   cantidadDePreguntasCorrectas,

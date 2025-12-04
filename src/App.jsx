@@ -1,13 +1,13 @@
 import './App.css'
 import { Routes, Route } from "react-router-dom";
-import DificultadPage from "./pages/DificultadPage";
-import PreguntasPage from './pages/PreguntasPage';
+import DifficultyPage from "./pages/Difficulty/DifficultyPage";
+import GamePage from './pages/Game/GamePage';
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<DificultadPage />} />
-      <Route path="/preguntas" element={<PreguntasPage />} />
+      <Route path="/" element={<DifficultyPage />} />
+      <Route path="/preguntas" element={<GamePage />} />
     </Routes>
   )
 }

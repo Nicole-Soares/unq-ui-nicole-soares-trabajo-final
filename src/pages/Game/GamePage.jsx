@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
-import { useDifficulty } from "../hooks/useDifficulty";
-import Loader from "../components/Loader";
-import PreguntaActual from "../components/PreguntaActual";
-import "../style/PreguntaActual.css";
-import ResultadosPage from "./ResultadosPage";
-import { useTheme } from "../hooks/useTheme";
-import ThemeButtons from "../components/ThemeButtons";
+import { useDifficulty } from "../../hooks/useDifficulty";
+import Loader from "../../components/Loader/Loader";
+import PreguntaActual from "../../components/PreguntaActual";
+import "./GamePage.css";
+import ResultadosPage from "../Result/ResultPage";
+import { useTheme } from "../../hooks/useTheme";
+import ThemeButtons from "../../components/ThemeButtons";
+import {
+  checkAnswer,
+  getQuestionsByDifficulty,
+} from "../../services/triviaApi";
 
-export default function PreguntasPage() {
+export default function GamePage() {
   const [preguntas, setPreguntas] = useState([]);
   const { difficulty } = useDifficulty();
   const { theme } = useTheme();
@@ -20,6 +24,8 @@ export default function PreguntasPage() {
     useState(0);
   const [cantidadDePreguntasIncorrectas, setCantidadDePreguntasIncorrectas] =
     useState(0);
+  const [errorMsg, setErrorMsg] = useState(null);
+
   const listaDeFondos = [
     "fondo1",
     "fondo2",
@@ -49,14 +55,13 @@ export default function PreguntasPage() {
   useEffect(() => {
     const fetchPreguntas = async () => {
       try {
-        const response = await fetch(
-          `https://preguntados-api.vercel.app/api/questions?difficulty=${difficulty}`
-        );
-        const result = await response.json();
+        const result = await getQuestionsByDifficulty(difficulty);
         setPreguntas(result);
         setLoading(false);
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching data:", error);
+        setErrorMsg("Sorry, we couldn't load the questions. Please try again.");
+        setLoading(false);
       }
     };
     fetchPreguntas();
@@ -64,27 +69,11 @@ export default function PreguntasPage() {
 
   const fetchRespuesta = async (questionId, option) => {
     try {
-      const response = await fetch(
-        "https://preguntados-api.vercel.app/api/answer",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            questionId: questionId,
-            option: option,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      return data;
-    } catch (err) {
-      console.error(err);
+      const response = await checkAnswer(questionId, option);
+      return response;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setErrorMsg("Sorry, we couldn't load the answer. Please try again.");
       return null;
     }
   };
@@ -102,9 +91,7 @@ export default function PreguntasPage() {
         } else {
           setCantidadDePreguntasIncorrectas((prev) => prev + 1);
         }
-
         setCantidadDePreguntasHechas((prev) => prev + 1);
-
         setRespuesta(null);
         setOpcionSeleccionada(null);
         setCurrentIndex((prev) => prev + 1);
@@ -116,6 +103,17 @@ export default function PreguntasPage() {
 
   if (loading) {
     return <Loader />;
+  }
+
+  if (errorMsg) {
+    return (
+      <div className={`preguntas-background error-state ${theme}`}>
+        <div className="theme-toggle-wrapper">
+          <ThemeButtons />
+        </div>
+        <h2 className="error-message">{errorMsg}</h2>
+      </div>
+    );
   }
 
   if (cantidadDePreguntasHechas >= preguntas.length) {
@@ -143,8 +141,9 @@ export default function PreguntasPage() {
         <ThemeButtons />
       </div>
       <h1 className="cantidad-preguntas">
-        {cantidadDePreguntasHechas}/{preguntas.length - 1}
+        {currentIndex + 1}/{preguntas.length}
       </h1>
+      
       <PreguntaActual
         key={currentIndex} // para renderizar de nuevo el componente cuando se cambia de pregunta
         pregunta={preguntas[currentIndex]} //para que pase a la siguiente pregunta
