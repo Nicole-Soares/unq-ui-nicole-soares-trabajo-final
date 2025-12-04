@@ -1,15 +1,6 @@
 .preguntas-background {
   height: 100vh;
   width: 100%;
-  background-image: linear-gradient(
-    to right,
-    #00c853,
-    #ff8f00,
-    #ffe600,
-    #ec407a,
-    #1e88e5,
-    #f44336
-  );
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,43 +9,83 @@
 }
 
 .preguntas-background.fondo1 {
-  background-image: url("../assets/fondos/fondo1.jpg");
+  background-color: #00c853;
 }
 
 .preguntas-background.fondo2 {
-  background-image: url("../assets/fondos/fondo2.jpg");
+  background-color: #ff8f00;
 }
 
 .preguntas-background.fondo3 {
-  background-image: url("../assets/fondos/fondo3.jpg");
+  background-color: #ffe600;
 }
 
 .preguntas-background.fondo4 {
-  background-image: url("../assets/fondos/fondo4.jpg");
+  background-color: #ec407a;
 }
 
 .preguntas-background.fondo5 {
-  background-image: url("../assets/fondos/fondo5.jpg");
+  background-color: #1e88e5;
 }
 
 .preguntas-background.fondo6 {
-  background-image: url("../assets/fondos/fondo6.jpg");
+  background-color: #f44336;
 }
 
 .preguntas-background.fondo7 {
-  background-image: url("../assets/fondos/fondo7.jpg");
+    background-color: #00c853;
 }
 
 .preguntas-background.fondo8 {
-  background-image: url("../assets/fondos/fondo8.jpg");
+    background-color: #ff8f00;
 }
 
 .preguntas-background.fondo9 {
-  background-image: url("../assets/fondos/fondo9.jpg");
+    background-color: #ffe600;
 }
 
 .preguntas-background.fondo10 {
-  background-image: url("../assets/fondos/fondo10.jpg");
+    background-color: #ec407a;
+}
+
+.preguntas-background.fondo1Dark {
+  background-color: #00695c;   /* verde oscuro */
+}
+
+.preguntas-background.fondo2Dark {
+  background-color: #bf6b00;   /* naranja oscuro */
+}
+
+.preguntas-background.fondo3Dark {
+  background-color: #b38f00;   /* amarillo mostaza oscuro */
+}
+
+.preguntas-background.fondo4Dark {
+  background-color: #8e245b;   /* rosa/bordo oscuro */
+}
+
+.preguntas-background.fondo5Dark {
+  background-color: #0d47a1;   /* azul oscuro */
+}
+
+.preguntas-background.fondo6Dark {
+  background-color: #b71c1c;   /* rojo oscuro */
+}
+
+.preguntas-background.fondo7Dark {
+  background-color: #004d40;   /* verde petróleo oscuro */
+}
+
+.preguntas-background.fondo8Dark {
+  background-color: #6a1b9a;   /* violeta oscuro */
+}
+
+.preguntas-background.fondo9Dark {
+  background-color: #283593;   /* azul violáceo oscuro */
+}
+
+.preguntas-background.fondo10Dark {
+  background-color: #4527a0;   /* violeta/indigo oscuro */
 }
 
 .cantidad-preguntas {

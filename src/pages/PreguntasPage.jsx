@@ -4,10 +4,13 @@ import Loader from "../components/Loader";
 import PreguntaActual from "../components/PreguntaActual";
 import "../style/PreguntaActual.css";
 import ResultadosPage from "./ResultadosPage";
+import { useTheme } from "../hooks/useTheme";
+import ThemeButtons from "../components/ThemeButtons";
 
 export default function PreguntasPage() {
   const [preguntas, setPreguntas] = useState([]);
   const { difficulty } = useDifficulty();
+  const { theme } = useTheme();
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [respuesta, setRespuesta] = useState(null);
@@ -28,6 +31,19 @@ export default function PreguntasPage() {
     "fondo8",
     "fondo9",
     "fondo10",
+  ];
+
+  const listaDeFondosDark = [
+    "fondo1Dark",
+    "fondo2Dark",
+    "fondo3Dark",
+    "fondo4Dark",
+    "fondo5Dark",
+    "fondo6Dark",
+    "fondo7Dark",
+    "fondo8Dark",
+    "fondo9Dark",
+    "fondo10Dark",
   ];
 
   useEffect(() => {
@@ -112,9 +128,20 @@ export default function PreguntasPage() {
   }
 
   const fondoActualClass = listaDeFondos[currentIndex % listaDeFondos.length];
+  const fondoActualClassDark =
+    listaDeFondosDark[currentIndex % listaDeFondosDark.length];
 
   return (
-    <div className={`preguntas-background ${fondoActualClass}`}>
+    <div
+      className={
+        theme === "light"
+          ? `preguntas-background ${fondoActualClass}`
+          : `preguntas-background ${fondoActualClassDark}`
+      }
+    >
+      <div className="theme-toggle-wrapper">
+        <ThemeButtons />
+      </div>
       <h1 className="cantidad-preguntas">
         {cantidadDePreguntasHechas}/{preguntas.length - 1}
       </h1>

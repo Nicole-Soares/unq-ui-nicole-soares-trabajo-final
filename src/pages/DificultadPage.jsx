@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import "../style/DificultadPage.css";
 import Arte from "../assets/Arte.png";
@@ -10,14 +10,17 @@ import Willy from "../assets/Willy.png";
 import Entrenemiento from "../assets/Entretenimiento.png";
 import Geografia from "../assets/Geografia.png";
 import { useDifficulty } from "../hooks/useDifficulty";
+import ThemeButtons from "../components/ThemeButtons";
+import { useTheme } from "../hooks/useTheme";
 
 export default function DificultadPage() {
   const [dificultades, setDificultades] = useState([]);
   const { difficulty, setDifficulty } = useDifficulty(); // se podría usar useContext(y el contexto)
+  const { theme } = useTheme();
   const [loading, setLoading] = useState(true);
-const navigate = useNavigate();
-  
-    useEffect(() => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
     const MIN_LOADING_MS = 2050; // mínimo que querés ver el loader
     const start = Date.now(); // el tiempo en el que empezo a montarse el componente
 
@@ -27,7 +30,6 @@ const navigate = useNavigate();
           "https://preguntados-api.vercel.app/api/difficulty"
         );
         const result = await response.json();
-
 
         setDificultades(result);
 
@@ -39,7 +41,6 @@ const navigate = useNavigate();
         setTimeout(() => {
           setLoading(false);
         }, remaining);
-
       } catch (error) {
         console.error("Error fetching data:", error);
         setLoading(false);
@@ -56,17 +57,22 @@ const navigate = useNavigate();
   const handleJugar = () => {
     if (!difficulty) return;
     setTimeout(() => {
-        navigate("/preguntas");
-      }, 0);
-      
+      navigate("/preguntas");
+    }, 0);
   };
 
   if (loading) {
     return <Loader />;
-  };
+  }
 
   return (
-    <div className="dificultad-background">
+    <div className={`dificultad-background ${theme}`}>
+      <div className="theme-toggle-wrapper">
+        <ThemeButtons />
+      </div>
+      <div>
+        <h1 className="title-preguntados">Preguntados</h1>
+      </div>
       <div className="contenedor-personajes">
         <img
           src={Ciencia}
@@ -104,7 +110,7 @@ const navigate = useNavigate();
           alt="arte"
         />
       </div>
-      <div className="modal-dificultad">
+      <div className={`modal-dificultad ${theme}`}>
         <h1 className="modal-title">Choose a difficulty level</h1>
 
         {dificultades.length === 0 ? (
@@ -116,7 +122,7 @@ const navigate = useNavigate();
             <button
               key={dificultad}
               className={`dificultad-btn ${
-                difficulty === dificultad ? "seleccionado" : ""
+                difficulty === dificultad ? `seleccionado ${difficulty}` : ""
               }`}
               onClick={() => handleClickDificultad(dificultad)}
             >
@@ -125,7 +131,11 @@ const navigate = useNavigate();
           ))
         )}
 
-        <button className="jugar-btn" disabled={!difficulty} onClick={handleJugar}>
+        <button
+          className={`jugar-btn ${theme}`}
+          disabled={!difficulty}
+          onClick={handleJugar}
+        >
           ¡A jugar!
         </button>
       </div>
