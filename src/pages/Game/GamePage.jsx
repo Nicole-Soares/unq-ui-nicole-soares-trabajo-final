@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDifficulty } from "../../hooks/useDifficulty";
 import Loader from "../../components/Loader/Loader";
 import PreguntaActual from "../../components/PreguntaActual";
@@ -25,6 +25,8 @@ export default function GamePage() {
   const [cantidadDePreguntasIncorrectas, setCantidadDePreguntasIncorrectas] =
     useState(0);
   const [errorMsg, setErrorMsg] = useState(null);
+const [timeLeft, setTimeLeft] = useState(10);
+  const timerRef = useRef(null);
 
   const listaDeFondos = [
     "fondo1",
@@ -52,6 +54,8 @@ export default function GamePage() {
     "fondo10Dark",
   ];
 
+
+
   useEffect(() => {
     const fetchPreguntas = async () => {
       try {
@@ -64,13 +68,16 @@ export default function GamePage() {
         setLoading(false);
       }
     };
+
     fetchPreguntas();
   }, [difficulty]);
 
+  
+
   const fetchRespuesta = async (questionId, option) => {
     try {
-      const response = await checkAnswer(questionId, option);
-      return response;
+      const data = await checkAnswer(questionId, option); 
+      return data;
     } catch (error) {
       console.error("Error fetching data:", error);
       setErrorMsg("Sorry, we couldn't load the answer. Please try again.");
@@ -78,28 +85,82 @@ export default function GamePage() {
     }
   };
 
-  //cuando seleccionan una respuesta
+  // cuando se termina el tiempo
+
+  const handleTimeout = () => {
+    // tiempo agotado = incorrecta
+    setCantidadDePreguntasIncorrectas((prev) => prev + 1);
+    setCantidadDePreguntasHechas((prev) => prev + 1);
+    setRespuesta(null);
+    setOpcionSeleccionada(null);
+    setTimeLeft(10);                    
+    setCurrentIndex((prev) => prev + 1);
+  };
+
+  // timer
+
+  useEffect(() => {
+    if (loading || preguntas.length === 0) return;
+    if (cantidadDePreguntasHechas >= preguntas.length) return;
+
+    // limpiar timers anteriores
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+
+    timerRef.current = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timerRef.current);
+          timerRef.current = null;
+          handleTimeout();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+  }, [currentIndex, loading, preguntas.length, cantidadDePreguntasHechas]);
+
+// Usuario responde
   const handleAnswer = async (questionId, option) => {
+    // si entra acá es porque ya respondio
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+
     setOpcionSeleccionada(option);
     const data = await fetchRespuesta(questionId, option);
 
     if (data) {
       setRespuesta(data);
+
       setTimeout(() => {
         if (data.answer) {
           setCantidadDePreguntasCorrectas((prev) => prev + 1);
         } else {
           setCantidadDePreguntasIncorrectas((prev) => prev + 1);
         }
+
         setCantidadDePreguntasHechas((prev) => prev + 1);
         setRespuesta(null);
         setOpcionSeleccionada(null);
+        setTimeLeft(10);               
         setCurrentIndex((prev) => prev + 1);
       }, 2000);
     } else {
       setOpcionSeleccionada(null);
     }
   };
+
 
   if (loading) {
     return <Loader />;
@@ -129,6 +190,8 @@ export default function GamePage() {
   const fondoActualClassDark =
     listaDeFondosDark[currentIndex % listaDeFondosDark.length];
 
+ 
+
   return (
     <div
       className={
@@ -140,13 +203,17 @@ export default function GamePage() {
       <div className="theme-toggle-wrapper">
         <ThemeButtons />
       </div>
-      <h1 className="cantidad-preguntas">
-        {currentIndex + 1}/{preguntas.length}
-      </h1>
-      
+
+      <div className="top-bar">
+        <h1 className="cantidad-preguntas">
+          {currentIndex + 1}/{preguntas.length}
+        </h1>
+        <span className="timer">{timeLeft}s</span>
+      </div>
+
       <PreguntaActual
-        key={currentIndex} // para renderizar de nuevo el componente cuando se cambia de pregunta
-        pregunta={preguntas[currentIndex]} //para que pase a la siguiente pregunta
+        key={currentIndex}
+        pregunta={preguntas[currentIndex]}
         onAnswer={handleAnswer}
         respuesta={respuesta}
         opcionSeleccionada={opcionSeleccionada}

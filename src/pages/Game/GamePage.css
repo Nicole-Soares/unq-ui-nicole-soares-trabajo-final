@@ -191,12 +191,31 @@
   color: #000;
 }
 
+.top-bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.timer {
+  font-family: "Baloo 2", sans-serif;
+  font-size: 18px;
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.35);
+}
+
 /* ---------------------------------------------------
    pantallas < 600px  (MOBILE CHICO)
 --------------------------------------------------- */
 @media (max-width: 600px) {
   .preguntas-background {
-    padding: 16px 12px;         /* 👈 margen a los costados */
+    padding: 16px 12px;         
     justify-content: flex-start;
     box-sizing: border-box;
   }
@@ -212,7 +231,7 @@
     padding: 24px 16px;
     border-radius: 18px;
     max-width: 100%;
-    width: 100%;                /* 👈 ocupa el ancho menos el padding del contenedor */
+    width: 100%;               
     gap: 18px;
     margin-top: 10px;
   }
@@ -226,6 +245,15 @@
     font-size: 14px;
     padding: 10px 12px;
     margin-top: 8px;
+  }
+
+  .top-bar {
+    margin-top: 50px;
+  }
+
+  .timer {
+    font-size: 16px;
+    padding: 3px 10px;
   }
 }
 
