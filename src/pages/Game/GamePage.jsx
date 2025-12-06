@@ -10,6 +10,9 @@ import {
   checkAnswer,
   getQuestionsByDifficulty,
 } from "../../services/triviaApi";
+import { useNavigate } from "react-router-dom";
+import { addResult } from "../../utils/resultsLocalStorage";
+import Menu from "../../components/menu/Menu";
 
 export default function GamePage() {
   const [preguntas, setPreguntas] = useState([]);
@@ -25,9 +28,9 @@ export default function GamePage() {
   const [cantidadDePreguntasIncorrectas, setCantidadDePreguntasIncorrectas] =
     useState(0);
   const [errorMsg, setErrorMsg] = useState(null);
-const [timeLeft, setTimeLeft] = useState(10);
+  const [timeLeft, setTimeLeft] = useState(10);
   const timerRef = useRef(null);
-
+  const navigate = useNavigate();
   const listaDeFondos = [
     "fondo1",
     "fondo2",
@@ -54,8 +57,6 @@ const [timeLeft, setTimeLeft] = useState(10);
     "fondo10Dark",
   ];
 
-
-
   useEffect(() => {
     const fetchPreguntas = async () => {
       try {
@@ -69,14 +70,17 @@ const [timeLeft, setTimeLeft] = useState(10);
       }
     };
 
+    //no se puede acceder a las preguntas sin antes haber elegido una dificultad
+    if (difficulty === null) {
+      navigate("/");
+    }
+
     fetchPreguntas();
   }, [difficulty]);
 
-  
-
   const fetchRespuesta = async (questionId, option) => {
     try {
-      const data = await checkAnswer(questionId, option); 
+      const data = await checkAnswer(questionId, option);
       return data;
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -93,7 +97,7 @@ const [timeLeft, setTimeLeft] = useState(10);
     setCantidadDePreguntasHechas((prev) => prev + 1);
     setRespuesta(null);
     setOpcionSeleccionada(null);
-    setTimeLeft(10);                    
+    setTimeLeft(10);
     setCurrentIndex((prev) => prev + 1);
   };
 
@@ -129,9 +133,10 @@ const [timeLeft, setTimeLeft] = useState(10);
     };
   }, [currentIndex, loading, preguntas.length, cantidadDePreguntasHechas]);
 
-// Usuario responde
+  
+
+  // Usuario responde
   const handleAnswer = async (questionId, option) => {
-    // si entra acá es porque ya respondio
     if (timerRef.current) {
       clearInterval(timerRef.current);
       timerRef.current = null;
@@ -146,21 +151,23 @@ const [timeLeft, setTimeLeft] = useState(10);
       setTimeout(() => {
         if (data.answer) {
           setCantidadDePreguntasCorrectas((prev) => prev + 1);
+          console.log(difficulty)
+          addResult(difficulty, 1, 0);
         } else {
           setCantidadDePreguntasIncorrectas((prev) => prev + 1);
+          addResult(difficulty, 0, 1);
         }
 
         setCantidadDePreguntasHechas((prev) => prev + 1);
         setRespuesta(null);
         setOpcionSeleccionada(null);
-        setTimeLeft(10);               
+        setTimeLeft(10);
         setCurrentIndex((prev) => prev + 1);
       }, 2000);
     } else {
       setOpcionSeleccionada(null);
     }
   };
-
 
   if (loading) {
     return <Loader />;
@@ -178,19 +185,18 @@ const [timeLeft, setTimeLeft] = useState(10);
   }
 
   if (cantidadDePreguntasHechas >= preguntas.length) {
-    return (
-      <ResultadosPage
-        cantidadDePreguntasCorrectas={cantidadDePreguntasCorrectas}
-        cantidadDePreguntasIncorrectas={cantidadDePreguntasIncorrectas}
-      />
-    );
+    navigate("/resultados", {
+      replace: true,
+      state: {
+        cantidadDePreguntasCorrectas,
+        cantidadDePreguntasIncorrectas,
+      },
+    });
   }
 
   const fondoActualClass = listaDeFondos[currentIndex % listaDeFondos.length];
   const fondoActualClassDark =
     listaDeFondosDark[currentIndex % listaDeFondosDark.length];
-
- 
 
   return (
     <div
@@ -200,6 +206,10 @@ const [timeLeft, setTimeLeft] = useState(10);
           : `preguntas-background ${fondoActualClassDark}`
       }
     >
+      <div className="menu">
+        <Menu />
+      </div>
+
       <div className="theme-toggle-wrapper">
         <ThemeButtons />
       </div>

@@ -13,6 +13,7 @@ import { useDifficulty } from "../../hooks/useDifficulty";
 import ThemeButtons from "../../components/ThemeButtons";
 import { useTheme } from "../../hooks/useTheme";
 import { getDifficulties } from "../../services/triviaApi";
+import Menu from "../../components/menu/Menu";
 
 export default function DifficultyPage() {
   const [dificultades, setDificultades] = useState([]);
@@ -63,9 +64,14 @@ export default function DifficultyPage() {
 
   return (
     <div className={`difficulty-background ${theme}`}>
+      <div className="menu">
+        <Menu/>
+      </div>
       <div className="theme-toggle-wrapper">
         <ThemeButtons />
       </div>
+      <div className="content-wrapper">
+      <div className="container-difficulty-character">
       <div>
         <h1 className="title-trivia">Trivia Game</h1>
       </div>
@@ -134,6 +140,8 @@ export default function DifficultyPage() {
         >
           Let’s play!
         </button>
+      </div>
+      </div>
       </div>
     </div>
   );

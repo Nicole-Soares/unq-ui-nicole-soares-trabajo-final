@@ -1,20 +1,33 @@
 import { MdOutlineReplay } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Confetti from "react-confetti";
 import useWindowSize from "../../hooks/useWindowSize";
 import "./ResultPage.css";
 import ModalShare from "../../components/modales/ModalShare";
+import Menu from "../../components/menu/Menu";
 
-export default function ResultadosPage({
-  cantidadDePreguntasCorrectas,
-  cantidadDePreguntasIncorrectas,
-}) {
+export default function ResultadosPage() {
+const { state } = useLocation();
   const navigate = useNavigate();
   //hook del tamaño de la ventana actual
   const { width, height } = useWindowSize();
 
   const [shareMenuOpen, setShareMenuOpen] = useState(false);
+
+
+  useEffect(() => {
+    if (!state) {
+      navigate("/");
+    }
+  }, [state, navigate]);
+
+  if (!state) return null; 
+
+  
+  const { cantidadDePreguntasCorrectas, cantidadDePreguntasIncorrectas } =
+    state;
+
 
   const openShareMenu = () => {
     setShareMenuOpen(true);
@@ -27,6 +40,8 @@ export default function ResultadosPage({
   const handlerRepetir = () => {
     navigate("/");
   };
+
+  
 
   return (
     <div className="resultados-background">
