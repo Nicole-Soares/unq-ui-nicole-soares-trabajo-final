@@ -5,6 +5,14 @@ Es una aplicación web de trivia donde podés elegir una dificultad, responder p
 
 ---
 
+##![Vercel](https://assets.vercel.com/image/upload/v1588805858/repositories/vercel/logo.png)Vercel
+-La página fue subida a Vercel para una experiencia más completa en cuanto a lo relacionado a desarrollo y producción, a continuación el link para acceder:
+https://unq-ui-nicole-soares-trabajo-final.vercel.app/
+<img width="1913" height="951" alt="image" src="https://github.com/user-attachments/assets/14f1d450-f743-4f61-b0bb-416f3f54b3d2" />
+(no es necesario nada más, para correrlo localmente más abajo encontraran las indicaciones)
+
+---
+
 ## 🧩 Funcionalidades principales
 
 - **Selección de dificultad**: `easy`, `normal`, `hard`, `extreme`.
