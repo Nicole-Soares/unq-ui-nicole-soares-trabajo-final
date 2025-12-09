@@ -6,36 +6,40 @@ export default function ModalShare({
   cantidadDePreguntasIncorrectas,
   onClose,
 }) {
-  const getShareLinks = () => {
-    const total = cantidadDePreguntasCorrectas + cantidadDePreguntasIncorrectas;
-    const scoreText = `I scored ${cantidadDePreguntasCorrectas}/${total} correct answers in Trivia Game!`;
+  const total = cantidadDePreguntasCorrectas + cantidadDePreguntasIncorrectas;
 
-    return {
-      facebook: `https://www.facebook.com/sharer/sharer.php?u=https://yourgame.com&quote=${encodeURIComponent(
-        scoreText
-      )}`,
-      twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-        scoreText
-      )}`,
-      whatsapp: `https://wa.me/?text=${encodeURIComponent(scoreText)}`,
-    };
+  const scoreText = `I scored ${cantidadDePreguntasCorrectas}/${total} correct answers in Trivia Game!`;
+
+  const DOMAIN = "https://unq-ui-nicole-soares-trabajo-final.vercel.app/";
+
+  const shareLinks = {
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+      DOMAIN
+    )}`,
+    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      scoreText
+    )}`,
+    whatsapp: `https://wa.me/?text=${encodeURIComponent(scoreText)}`,
   };
 
   return (
     <div className="share-contenedor">
       <div className="share-menu">
         <div className="contenedor-share-icono">
-        <button className="share-close-btn" onClick={onClose}>
-          <IoClose className="icono-share"/>
-        </button>
+          <button className="share-close-btn" onClick={onClose}>
+            <IoClose className="icono-share" />
+          </button>
         </div>
-        <a href={getShareLinks().facebook} target="_blank">
+
+        <a href={shareLinks.facebook} target="_blank" rel="noopener noreferrer">
           Facebook
         </a>
-        <a href={getShareLinks().twitter} target="_blank">
+
+        <a href={shareLinks.twitter} target="_blank" rel="noopener noreferrer">
           Twitter / X
         </a>
-        <a href={getShareLinks().whatsapp} target="_blank">
+
+        <a href={shareLinks.whatsapp} target="_blank" rel="noopener noreferrer">
           WhatsApp Web
         </a>
       </div>

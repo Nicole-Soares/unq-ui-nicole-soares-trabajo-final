@@ -211,7 +211,7 @@
 }
 
 /* ---------------------------------------------------
-   pantallas < 600px  (MOBILE CHICO)
+   pantallas < 600px  mobile
 --------------------------------------------------- */
 @media (max-width: 600px) {
   .preguntas-background {
@@ -258,7 +258,7 @@
 }
 
 /* ---------------------------------------------------
-   600px – 900px  (TABLET / MEDIANO)
+   600px – 900px  tablet
 --------------------------------------------------- */
 @media (min-width: 600px) and (max-width: 900px) {
   .preguntas-background {
