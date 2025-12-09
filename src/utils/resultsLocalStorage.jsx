@@ -11,7 +11,7 @@ export function getScores() {
   const data = localStorage.getItem(KEY);
   const parsed = data ? JSON.parse(data) : {};
 
-  // para tener los cuatro niveles
+  // para tener los cuatro niveles de base
   return {
     easy: parsed.easy ?? BASE.easy,
     normal: parsed.normal ?? BASE.normal,

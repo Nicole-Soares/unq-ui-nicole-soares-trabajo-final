@@ -3,7 +3,6 @@ import { useDifficulty } from "../../hooks/useDifficulty";
 import Loader from "../../components/Loader/Loader";
 import PreguntaActual from "../../components/PreguntaActual";
 import "./GamePage.css";
-import ResultadosPage from "../Result/ResultPage";
 import { useTheme } from "../../hooks/useTheme";
 import ThemeButtons from "../../components/ThemeButtons";
 import {
@@ -133,8 +132,6 @@ export default function GamePage() {
     };
   }, [currentIndex, loading, preguntas.length, cantidadDePreguntasHechas]);
 
-  
-
   // Usuario responde
   const handleAnswer = async (questionId, option) => {
     if (timerRef.current) {
@@ -151,7 +148,7 @@ export default function GamePage() {
       setTimeout(() => {
         if (data.answer) {
           setCantidadDePreguntasCorrectas((prev) => prev + 1);
-          console.log(difficulty)
+          console.log(difficulty);
           addResult(difficulty, 1, 0);
         } else {
           setCantidadDePreguntasIncorrectas((prev) => prev + 1);

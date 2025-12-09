@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://preguntados-api.vercel.app/api";
+const API_BASE_URL = "https://preguntados-api.vercel.app/api"; 
 
 async function handleResponse(response) {
   if (!response.ok) {
