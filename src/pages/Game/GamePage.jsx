@@ -132,6 +132,18 @@ export default function GamePage() {
     };
   }, [currentIndex, loading, preguntas.length, cantidadDePreguntasHechas]);
 
+  useEffect(() => {
+    if (cantidadDePreguntasHechas >= preguntas.length && preguntas.length > 0) {
+      navigate("/resultados", {
+        replace: true,
+        state: {
+          cantidadDePreguntasCorrectas,
+          cantidadDePreguntasIncorrectas,
+        },
+      });
+    }
+  }, [cantidadDePreguntasHechas, preguntas.length, navigate]);
+
   // Usuario responde
   const handleAnswer = async (questionId, option) => {
     if (timerRef.current) {
@@ -148,7 +160,6 @@ export default function GamePage() {
       setTimeout(() => {
         if (data.answer) {
           setCantidadDePreguntasCorrectas((prev) => prev + 1);
-          console.log(difficulty);
           addResult(difficulty, 1, 0);
         } else {
           setCantidadDePreguntasIncorrectas((prev) => prev + 1);
@@ -181,16 +192,6 @@ export default function GamePage() {
     );
   }
 
-  if (cantidadDePreguntasHechas >= preguntas.length) {
-    navigate("/resultados", {
-      replace: true,
-      state: {
-        cantidadDePreguntasCorrectas,
-        cantidadDePreguntasIncorrectas,
-      },
-    });
-  }
-
   const fondoActualClass = listaDeFondos[currentIndex % listaDeFondos.length];
   const fondoActualClassDark =
     listaDeFondosDark[currentIndex % listaDeFondosDark.length];
@@ -218,13 +219,15 @@ export default function GamePage() {
         <span className="timer">{timeLeft}s</span>
       </div>
 
-      <PreguntaActual
-        key={currentIndex}
-        pregunta={preguntas[currentIndex]}
-        onAnswer={handleAnswer}
-        respuesta={respuesta}
-        opcionSeleccionada={opcionSeleccionada}
-      />
+      {preguntas[currentIndex] && (
+        <PreguntaActual
+          key={currentIndex}
+          pregunta={preguntas[currentIndex]}
+          onAnswer={handleAnswer}
+          respuesta={respuesta}
+          opcionSeleccionada={opcionSeleccionada}
+        />
+      )}
     </div>
   );
 }
